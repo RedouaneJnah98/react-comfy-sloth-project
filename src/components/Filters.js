@@ -17,12 +17,12 @@ const Filters = () => {
       shipping,
     },
     updateFilters,
-    clear_filters,
+    clearFilters,
     all_products,
   } = useFilterContext()
   const categories = getUniqueValues(all_products, 'category')
   const companies = getUniqueValues(all_products, 'company')
-  const colors = getUniqueValues(all_products, 'color')
+  const colors = getUniqueValues(all_products, 'colors')
 
   return (
     <Wrapper>
@@ -81,7 +81,77 @@ const Filters = () => {
             </select>
           </div>
           {/* end of companies */}
+          {/* colors */}
+          <div className="form-control">
+            <h5>colors</h5>
+            <div className="colors">
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      name="color"
+                      onClick={updateFilters}
+                      className={`${
+                        color === 'all' ? 'active all-btn' : 'all-btn'
+                      }`}
+                      data-color="all"
+                    >
+                      all
+                    </button>
+                  )
+                }
+
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    name="color"
+                    style={{ background: c }}
+                    className={`${
+                      color === c ? 'active color-btn' : 'color-btn'
+                    }`}
+                    data-color={c}
+                    onClick={updateFilters}
+                  >
+                    {color === c ? <FaCheck /> : null}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+          {/* end of colors */}
+          {/* price */}
+          <div className="form-control">
+            <h5>price</h5>
+            <p className="price">{formatPrice(price)}</p>
+            <input
+              type="range"
+              name="price"
+              min={min_price}
+              max={max_price}
+              onChange={updateFilters}
+              value={price}
+            />
+          </div>
+          {/* end of price */}
+          {/* shipping */}
+          <div className="form-control shipping">
+            <label htmlFor="shipping">free shipping</label>
+            <input
+              type="checkbox"
+              name="shipping"
+              id="shipping"
+              onChange={updateFilters}
+              checked={shipping}
+            />
+          </div>
+          {/* end of shipping */}
         </form>
+        <button type="button" className="clear-btn" onClick={clearFilters}>
+          clear filters
+        </button>
       </div>
     </Wrapper>
   )
