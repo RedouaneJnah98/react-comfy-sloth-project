@@ -9,9 +9,9 @@ const CartColumns = () => {
         <h5>price</h5>
         <h5>quantity</h5>
         <h5>subtotal</h5>
-        <span></span>
-        <hr />
       </div>
+      <span></span>
+      <hr />
     </Wrapper>
   )
 }
